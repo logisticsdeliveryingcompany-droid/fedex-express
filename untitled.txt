@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fenix Express Tracking</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f4f6f8;
+    }
+
+    /* HEADER */
+    .header {
+      background: #0b1f3a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+    }
+
+    .header p {
+      margin: 5px 0 0;
+      color: #cfd8dc;
+      font-size: 14px;
+    }
+
+    /* MAIN BOX */
+    .container {
+      width: 90%;
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #ff6a00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #e65c00;
+    }
+
+    /* RESULT */
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .pending { color: orange; }
+    .transit { color: blue; }
+    .delivered { color: green; }
+    .notfound { color: red; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Fenix Express 📦</h1>
+    <p>Fast • Safe • Reliable Delivery Tracking</p>
+  </div>
+
+  <!-- TRACKING BOX -->
+  <div class="container">
+    <h2>Track Your Shipment</h2>
+
+    <input id="track" placeholder="Enter tracking number">
+    <button onclick="track()">Track Now</button>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <div class="footer">
+    © 2026 Fenix Express Logistics
+  </div>
+
+  <script>
+    function track() {
+      let code = document.getElementById("track").value;
+      let result = document.getElementById("result");
+
+      if (code === "FX123") {
+        result.innerHTML = "Status: Pending 🟡";
+        result.className = "result pending";
+      } 
+      else if (code === "FX456") {
+        result.innerHTML = "Status: In Transit 🔵";
+        result.className = "result transit";
+      } 
+      else if (code === "FX789") {
+        result.innerHTML = "Status: Delivered 🟢";
+        result.className = "result delivered";
+      } 
+      else {
+        result.innerHTML = "Tracking Number Not Found ❌";
+        result.className = "result notfound";
+      }
+    }
+  </script>
+
+</body>
+</html>
