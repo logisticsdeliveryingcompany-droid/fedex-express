@@ -184,8 +184,13 @@
         result.innerHTML = statusHtml;
         result.className = "result " + shipments[clean_code].class;
         result.scrollIntoView({ behavior: 'smooth' });
+        } else {
+        result.innerHTML = "Tracking Number Not Found ❌";
+        result.className = "result notfound";
     }
-    
+}
+</script>
+  
     
 </script>
 
