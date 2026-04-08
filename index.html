@@ -167,25 +167,26 @@
     let result = document.getElementById("result");
 
     // Check if the code exists in our database
-    if (shipments[code]) {
-    // This creates the text for the WhatsApp message
-    const msg = `Hello, here is your update for ${code}:%0AStatus: Customs Clearance Delay 🔴%0ATrack live here: ${window.location.href}`;
-    const waLink = `https://wa.me/?text=${msg}`;
+        // We split the input to see if "-ADMIN" was added
+    let is_admin = code.includes("-ADMIN");
+    let clean_code = code.replace("-ADMIN", "");
 
-    // This puts the result AND the Green Button on the screen
-    result.innerHTML = `
-        <div style="margin-bottom:10px;">Status: ${shipments[code].status}</div>
-        <a href="${waLink}" class="share-btn">Send Update to Customer 💬</a>
-    `;
-    
-    result.className = "result " + shipments[code].class;
-    result.scrollIntoView({ behavior: 'smooth' });
-  
-    } else {
-      result.innerHTML = "Tracking Number Not Found ❌";
-      result.className = "result notfound";
+    if (shipments[clean_code]) {
+        let statusHtml = `<div>Status: ${shipments[clean_code].status}</div>`;
+
+        // The button ONLY appears if you added the secret code
+        if (is_admin) {
+            const msg = `Hello, here is your update for ${clean_code}:%0AStatus: Customs Clearance Delay 🔴%0ATrack live here: ${window.location.href}`;
+            const waLink = `https://wa.me/?text=${msg}`;
+            statusHtml += `<a href="${waLink}" class="share-btn">Send Update to Customer 💬</a>`;
+        }
+
+        result.innerHTML = statusHtml;
+        result.className = "result " + shipments[clean_code].class;
+        result.scrollIntoView({ behavior: 'smooth' });
     }
-  }
+    
+    
 </script>
 
 
