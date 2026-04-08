@@ -76,7 +76,22 @@
     .transit { color: blue; }
     .delivered { color: green; }
     .notfound { color: red; }
+.danger-box {
+  background-color: #fff0f0;
+  border: 3px solid #ff0000;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  color: #b30000;
+  animation: pulse 1.5s infinite;
+}
 
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+      }
+    
     /* FOOTER */
     .footer {
       text-align: center;
@@ -99,7 +114,7 @@
   <div class="container">
     <h2>Track Your Shipment</h2>
 
-    <input id="track" placeholder="Enter tracking number">
+    <input id="track" placeholder="Enter tracking number" onkeyup="if(event.key === 'Enter') track()">
     <button onclick="track()">Track Now</button>
 
     <div id="result" class="result"></div>
@@ -112,7 +127,7 @@
   <script>
   // Mini database of tracking numbers
   const shipments = {
-    "FX111": { status: "<b style='color: red;'>Customs Clearance Delay 🔴</b>", class: "pending" },
+    "FX111": { status: "<b style='color: red;'>Customs Clearance Delay 🔴</b>", class: "danger-box" },
     "FX456": { status: "In Transit 🔵", class: "transit" },
     "FX789": { status: "Delivered 🟢", class: "delivered" }
   };
@@ -126,6 +141,7 @@
     if (shipments[code]) {
       result.innerHTML = "Status: " + shipments[code].status;
       result.className = "result " + shipments[code].class;
+      result.scrollIntoView({ behavior: 'smooth' });
     } else {
       result.innerHTML = "Tracking Number Not Found ❌";
       result.className = "result notfound";
