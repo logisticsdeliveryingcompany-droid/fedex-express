@@ -64,6 +64,19 @@
     button:hover {
       background: #e65c00;
     }
+    .share-btn {
+  display: block;
+  background-color: #25D366;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+    }
+    
 
     /* RESULT */
     .result {
@@ -71,6 +84,22 @@
       font-size: 18px;
       font-weight: bold;
     }
+    .danger-box {
+  background-color: #fff0f0;
+  border: 3px solid #ff0000;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  color: #b30000;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+    
 
     .pending { color: orange; }
     .transit { color: blue; }
@@ -139,9 +168,19 @@
 
     // Check if the code exists in our database
     if (shipments[code]) {
-      result.innerHTML = "Status: " + shipments[code].status;
-      result.className = "result " + shipments[code].class;
-      result.scrollIntoView({ behavior: 'smooth' });
+    // This creates the text for the WhatsApp message
+    const msg = `Hello, here is your update for ${code}:%0AStatus: Customs Clearance Delay 🔴%0ATrack live here: ${window.location.href}`;
+    const waLink = `https://wa.me/?text=${msg}`;
+
+    // This puts the result AND the Green Button on the screen
+    result.innerHTML = `
+        <div style="margin-bottom:10px;">Status: ${shipments[code].status}</div>
+        <a href="${waLink}" class="share-btn">Send Update to Customer 💬</a>
+    `;
+    
+    result.className = "result " + shipments[code].class;
+    result.scrollIntoView({ behavior: 'smooth' });
+  
     } else {
       result.innerHTML = "Tracking Number Not Found ❌";
       result.className = "result notfound";
